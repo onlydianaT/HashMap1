@@ -3,15 +3,12 @@ import java.util.List;
 
 public class Map<K, V> {
     protected List<MyMapPair<Character, Integer>> pairs = new ArrayList<>();
-    //    protected String key;
-    protected int value;
 
     public void put(char key, int value) {
         for (MyMapPair<Character, Integer> kv : pairs) {
             if (kv.getKey() == (key)) {
                 int s = kv.getValue();
                 int result = s + 1;
-                //System.out.println(result);
                 kv.setValue(result);
                 return;
             }
@@ -20,7 +17,7 @@ public class Map<K, V> {
         pairs.add(newKv);
     }
 
-    int max = -1;
+    int max = Integer.MIN_VALUE;
     char keyMax = ' ';
 
     public void max() {
@@ -28,12 +25,10 @@ public class Map<K, V> {
             if (kv.getValue() > max) {
                 max = kv.getValue();
                 keyMax = kv.getKey();
-
                 continue;
             }
         }
         System.out.println("Maximal'no v vedennom texte vstrechaetsya symbol " + keyMax + " " + max + " raz");
-
     }
 
     int min = Integer.MAX_VALUE;
@@ -48,7 +43,6 @@ public class Map<K, V> {
             }
         }
         System.out.println("Minimal'no v vedennom texte vstrechaetsya symbol " + keyMin + " " + min + " raz");
-
     }
 
     public Integer get(char key) {
