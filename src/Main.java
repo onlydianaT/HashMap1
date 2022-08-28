@@ -19,7 +19,7 @@ public class Main {
             text1[i] = c;
         }
 
-        Map<Character, Integer> map = new Map<>();
+        MyMap<Character, Integer> map = new MyMap<>();
 
         for (int i = 0; i < text1.length; i++) {
             if (text1[i] == ' ' || text1[i] == '.') {
@@ -28,7 +28,6 @@ public class Main {
                 map.put(text1[i], 1);
             }
         }
-
         map.max();
         map.min();
         System.out.println("Zaproshennii symbol vstrechaetsya v texte " + map.get('x') + " raz");

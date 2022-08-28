@@ -1,33 +1,37 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Map<K, V> {
-    protected List<MyMapPair<Character, Integer>> pairs = new ArrayList<>();
+public class MyMap<K, V> {
+    protected List<MyMapPair<Character, Integer>> pairs = new LinkedList<>();
+    protected Map<Character, Integer> mapTransformer = new HashMap<>();
 
     public void put(char key, int value) {
         for (MyMapPair<Character, Integer> kv : pairs) {
             if (kv.getKey() == (key)) {
-                int s = kv.getValue();
-                int result = s + 1;
+                int getV = kv.getValue();
+                int result = getV + 1;
                 kv.setValue(result);
+                mapTransformer.put(key, result);
                 return;
             }
         }
         MyMapPair<Character, Integer> newKv = new MyMapPair<>(key, value);
         pairs.add(newKv);
+        mapTransformer.put(key, value);
     }
 
     int max = Integer.MIN_VALUE;
     char keyMax = ' ';
 
     public void max() {
-        for (MyMapPair<Character, Integer> kv : pairs) {
-            if (kv.getValue() > max) {
-                max = kv.getValue();
-                keyMax = kv.getKey();
+        for (char keyForEach : mapTransformer.keySet()) {
+            int val = mapTransformer.get(keyForEach);
+            if (val > max) {
+                max = val;
+                keyMax = keyForEach;
                 continue;
             }
         }
+
         System.out.println("Maximal'no v vedennom texte vstrechaetsya symbol " + keyMax + " " + max + " raz");
     }
 
@@ -35,10 +39,11 @@ public class Map<K, V> {
     char keyMin = ' ';
 
     public void min() {
-        for (MyMapPair<Character, Integer> kv : pairs) {
-            if (kv.getValue() < min) {
-                min = kv.getValue();
-                keyMin = kv.getKey();
+        for (char keyForEach : mapTransformer.keySet()) {
+            int val = mapTransformer.get(keyForEach);
+            if (val < min) {
+                min = val;
+                keyMin = keyForEach;
                 continue;
             }
         }
@@ -46,11 +51,11 @@ public class Map<K, V> {
     }
 
     public Integer get(char key) {
-        for (MyMapPair<Character, Integer> kv : pairs) {
-            if (kv.getKey() == (key)) {
-                return kv.getValue();
-            }
+        if (mapTransformer.containsKey(key)) {
+            int v = mapTransformer.get(key);
+            return v;
         }
         return null;
     }
 }
+
